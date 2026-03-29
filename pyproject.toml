@@ -8,10 +8,12 @@ authors = [
 ]
 requires-python = ">=3.12"
 dependencies = [
+    "apscheduler>=3.11.2",
     "beautifulsoup4>=4.14.3",
     "python-dotenv>=1.2.2",
     "requests>=2.33.0",
     "slack-sdk>=3.41.0",
+    "structlog>=25.5.0",
 ]
 
 [project.scripts]
