@@ -14,8 +14,9 @@ log = structlog.get_logger()
 
 def main() -> None:
     is_slack_configured = (
-        os.getenv("SLACK_BOT_TOKEN") and os.getenv("SLACK_CHANNEL")
-    ) or False
+        True if (os.getenv("SLACK_BOT_TOKEN") and os.getenv("SLACK_CHANNEL")) else False
+    )
+
     if not is_slack_configured:
         log.warning(
             "Slack configuration is missing. Notifications will not be sent to Slack."
@@ -34,7 +35,9 @@ def main() -> None:
             log.debug("Menu scraped successfully", menu=menu)
             if is_slack_configured:
                 response = send_menu_to_slack(menu)
-                log.debug("Menu sent to Slack successfully", response=response)
+                log.debug(
+                    "Menu sent to Slack successfully", response_data=response.data
+                )
 
         except Exception as e:
             log.error("Error occurred while scraping menu", error=e)

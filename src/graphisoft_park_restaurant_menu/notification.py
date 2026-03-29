@@ -1,5 +1,4 @@
 import os
-from pprint import pprint
 
 from dotenv import load_dotenv
 from slack_sdk import WebClient
@@ -31,8 +30,6 @@ def build_slack_message(menu: list[Category]) -> list:
 
 def send_menu_to_slack(menu: list[Category]) -> SlackResponse:
     blocks = build_slack_message(menu)
-    pprint(blocks)
-
     client = WebClient(token=SLACK_BOT_TOKEN)
     response = client.chat_postMessage(
         channel=SLACK_CHANNEL,

@@ -1,0 +1,8 @@
+services:
+  menu-notifier:
+    container_name: menu-notifier
+    build: .
+    env_file: .env
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
