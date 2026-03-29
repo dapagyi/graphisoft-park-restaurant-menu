@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 MENU_URL = "https://arco-s.com"
 
 
-def scrape_menu():
+def scrape_menu() -> dict:
     response = requests.get(MENU_URL)
     response.raise_for_status()
     soup = BeautifulSoup(response.text, "html.parser")
