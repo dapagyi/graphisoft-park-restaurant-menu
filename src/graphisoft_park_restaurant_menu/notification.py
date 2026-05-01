@@ -8,8 +8,8 @@ from graphisoft_park_restaurant_menu.menu_scraper import Category, scrape_menu
 
 load_dotenv()
 
-SLACK_BOT_TOKEN = os.getenv("SLACK_BOT_TOKEN")
-SLACK_CHANNEL = os.getenv("SLACK_CHANNEL")
+SLACK_BOT_TOKEN = os.environ["SLACK_BOT_TOKEN"]
+SLACK_CHANNEL = os.environ["SLACK_CHANNEL"]
 
 
 def build_slack_message(menu: list[Category]) -> list:

@@ -39,14 +39,19 @@ def scrape_menu() -> list[Category]:
     current_category = "Kategorizálatlan"
     elements = soup.find_all(["div", "ul"], class_=["felirat", "products"])
     for elem in elements:
-        if "felirat" in elem.get("class", []):
+        if "felirat" in elem.get("class", []):  # type: ignore
             # Extract the category name
             current_category = elem.get_text(strip=True).capitalize()
-        elif "products" in elem.get("class", []):
+        elif "products" in elem.get("class", []):  # type: ignore
             # Find all product titles within the current category
             titles = elem.find_all("h2", class_="woocommerce-loop-product__title")
             for title in titles:
-                menu[current_category].append(title.get_text(strip=True))
+                title = title.get_text(strip=True)
+
+                if title == title.lower() or title == title.upper():
+                    title = title.capitalize()
+
+                menu[current_category].append(title)
 
     return _sort_categories(
         [Category(name=cat, dishes=dishes) for cat, dishes in menu.items()]
@@ -56,7 +61,7 @@ def scrape_menu() -> list[Category]:
 if __name__ == "__main__":
     result = scrape_menu()
 
-    for category, dishes in result.items():
-        print(f"--- {category} ---")
-        for dish in dishes:
+    for category in result:
+        print(f"--- {category.name} ---")
+        for dish in category.dishes:
             print(f"  • {dish}")
